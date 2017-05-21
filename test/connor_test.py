@@ -3,12 +3,12 @@
 #pylint: disable=too-many-arguments
 #pylint: disable=deprecated-method
 
-from __future__ import print_function, absolute_import, division
+
 from argparse import Namespace
 import os
 import sys
 try:
-    from StringIO import StringIO
+    from io import StringIO
 except ImportError:
     from io import StringIO
 from testfixtures.tempdirectory import TempDirectory

@@ -15,12 +15,12 @@ original reads.'''
 ##   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 ##   See the License for the specific language governing permissions and
 ##   limitations under the License.
-from __future__ import print_function, absolute_import, division
+
 import argparse
 try:
     from builtins import range as iter_range
 except ImportError:
-    from __builtin__ import xrange as iter_range
+    from builtins import xrange as iter_range
 from collections import defaultdict, Counter
 from copy import deepcopy
 from functools import partial
@@ -214,8 +214,8 @@ def _build_coordinate_pairs(connor_alignments, excluded_writer):
             else:
                 alignment.filter_value = MISSING_MATE_FILTER
                 excluded_writer.write(None, None, alignment)
-    for aligns in coords.values():
-        for align in aligns.values():
+    for aligns in list(coords.values()):
+        for align in list(aligns.values()):
             align.filter_value = MISSING_MATE_FILTER
             excluded_writer.write(None, None, align)
 
@@ -246,7 +246,7 @@ class _CoordinateFamilyHolder(object):
             if right_coord < rightmost_boundary:
                 in_progress.pop(0)
                 left_families = self._coordinate_family.pop((reference_name, right_coord), {})
-                for family in sorted(left_families.values(),
+                for family in sorted(list(left_families.values()),
                                      key=lambda x:x[0].left.reference_start):
                     family.sort(key=lambda x: x.query_name)
                     self.pending_pair_count -= len(family)
@@ -255,8 +255,8 @@ class _CoordinateFamilyHolder(object):
                 break
 
     def _remaining_families(self):
-        for left_families in self._coordinate_family.values():
-            for family in left_families.values():
+        for left_families in list(self._coordinate_family.values()):
+            for family in list(left_families.values()):
                 self.pending_pair_count -= len(family)
                 yield family
             left_families.clear()

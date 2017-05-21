@@ -1,4 +1,4 @@
-from __future__ import print_function, absolute_import, division
+
 
 from datetime import datetime
 import getpass
@@ -39,7 +39,7 @@ class FilteredGenerator(object):
                 that accepts an item and returns true is that item should
                 be excluded. For example: {"div by 2": lambda x: x % 2 == 0}
         '''
-        self._filters = sorted(filter_dict.items(), key=lambda x: x[0])
+        self._filters = sorted(list(filter_dict.items()), key=lambda x: x[0])
 
     def filter(self, base_collection):
         '''Yields subset of base_collection/generator based on filters.'''
@@ -136,7 +136,7 @@ class Logger(object):
         self.warning_occurred = True
 
 def sort_dict(key_counts):
-    return sorted(key_counts.items(), key=lambda x: (-1 * x[1], x[0]))
+    return sorted(list(key_counts.items()), key=lambda x: (-1 * x[1], x[0]))
 
 
 def peak_memory():

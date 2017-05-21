@@ -1,4 +1,4 @@
-from __future__ import print_function, absolute_import, division
+
 import math
 
 def build_family_handlers(args,
@@ -97,7 +97,7 @@ class _FamilySizeStatHandler(object):
 
         self._log.debug(('family_stat|family size distribution (original pair '
                    'counts: min, 1Q, median, mean, 3Q, max): {}'),
-                  ', '.join(map(lambda x: str(round(x, 2)), self.summary)))
+                  ', '.join([str(round(x, 2)) for x in self.summary]))
 
 
 class _MatchStatHandler(object):

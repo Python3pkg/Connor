@@ -5,11 +5,11 @@ Each validation function evaluates a specific precondition raising a
 UsageException if things look problematic or logging a warning if the condition
 can be forced.
 '''
-from __future__ import print_function, absolute_import, division
+
 from collections import Counter
 import itertools
 try:
-    from itertools import izip as iter_zip
+    
 except ImportError:
     iter_zip = zip
 import os

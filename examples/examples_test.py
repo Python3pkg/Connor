@@ -1,4 +1,4 @@
-from __future__ import print_function, absolute_import
+
 import filecmp
 import os
 from test.utils_test import BaseConnorTestCase

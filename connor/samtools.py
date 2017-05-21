@@ -1,5 +1,5 @@
 """Simplifies discrepancies in how different versions pysam wrap samtools"""
-from __future__ import print_function, absolute_import, division
+
 from collections import defaultdict, OrderedDict
 from copy import deepcopy
 import os
@@ -109,7 +109,7 @@ class LoggingWriter(object):
     @property
     def _unplaced_aligns(self):
         unplaced_aligns = {}
-        for (fam_filter, align_filter), cnt in self._align_filter_stats.items():
+        for (fam_filter, align_filter), cnt in list(self._align_filter_stats.items()):
             if fam_filter == LoggingWriter.UNPLACED_FAMILY.filter_value and align_filter:
                 unplaced_aligns[align_filter] = cnt
         return LoggingWriter._filter_counts(unplaced_aligns)
@@ -129,7 +129,7 @@ class LoggingWriter(object):
     @property
     def _discarded_aligns(self):
         discarded_aligns = {}
-        for (fam_filter, align_filter), cnt in self._align_filter_stats.items():
+        for (fam_filter, align_filter), cnt in list(self._align_filter_stats.items()):
             filter_value = LoggingWriter._discarded_filter_value(fam_filter,
                                                                  align_filter)
             if filter_value:
@@ -144,7 +144,7 @@ class LoggingWriter(object):
         included_count = len(family_filter_stats.pop(None))
         discarded_count = 0
         filter_counts = OrderedDict()
-        for name, fam_ids in family_filter_stats.items():
+        for name, fam_ids in list(family_filter_stats.items()):
             align_count = len(fam_ids)
             discarded_count += align_count
             filter_counts[name] = align_count
@@ -157,7 +157,7 @@ class LoggingWriter(object):
     def _align_stats(self):
         included_filter = (None, None)
         included_count = self._align_filter_stats[included_filter]
-        excluded_count = sum([count for fam_align_filter, count in self._align_filter_stats.items() if fam_align_filter != included_filter])
+        excluded_count = sum([count for fam_align_filter, count in list(self._align_filter_stats.items()) if fam_align_filter != included_filter])
         total_count = included_count + excluded_count
         return included_count, excluded_count, total_count
 
@@ -167,7 +167,7 @@ class LoggingWriter(object):
 
     @staticmethod
     def _log_filter_counts(filter_counts, log_method, msg_format, total):
-        for name, count in filter_counts.items():
+        for name, count in list(filter_counts.items()):
             percent = LoggingWriter._percent_stat_str(count, total)
             log_method(msg_format.format(filter_name=name,
                                          percent_stat=percent))

@@ -1,7 +1,7 @@
 #pylint: disable=invalid-name, too-few-public-methods, too-many-public-methods
 #pylint: disable=protected-access, missing-docstring, too-many-locals
 #pylint: disable=too-many-arguments,deprecated-method
-from __future__ import print_function, absolute_import, division
+
 from argparse import Namespace
 from copy import deepcopy
 import os
@@ -47,7 +47,7 @@ def mock_align(**kwargs):
     a.template_length=167
     #query_qualities must be set after query_sequence
     a.query_sequence=kwargs.pop('query_sequence', 'AGCTTAG')
-    for (key, value) in kwargs.items():
+    for (key, value) in list(kwargs.items()):
         setattr(a, key, value)
     return a
 
